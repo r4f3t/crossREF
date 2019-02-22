@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TXTCode = new System.Windows.Forms.TextBox();
             this.BTNAra = new System.Windows.Forms.Button();
             this.BTNAktar = new System.Windows.Forms.Button();
@@ -36,8 +37,11 @@
             this.GridGezgin = new System.Windows.Forms.DataGridView();
             this.gezginItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Class = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.GRPLoader = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.GridItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridGezgin)).BeginInit();
+            this.GRPLoader.SuspendLayout();
             this.SuspendLayout();
             // 
             // TXTCode
@@ -86,6 +90,9 @@
             // ITEM_CODE
             // 
             this.ITEM_CODE.DataPropertyName = "ITEMCODE";
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.ITEM_CODE.DefaultCellStyle = dataGridViewCellStyle2;
             this.ITEM_CODE.HeaderText = "Ürün Kodu";
             this.ITEM_CODE.Name = "ITEM_CODE";
             this.ITEM_CODE.ReadOnly = true;
@@ -103,7 +110,8 @@
             this.GridGezgin.Size = new System.Drawing.Size(491, 150);
             this.GridGezgin.TabIndex = 3;
             this.GridGezgin.Visible = false;
-            this.GridGezgin.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridGezgin_CellContentDoubleClick);
+            this.GridGezgin.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridGezgin_CellDoubleClick);
+            this.GridGezgin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GridGezgin_KeyDown);
             this.GridGezgin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GridGezgin_KeyPress);
             // 
             // gezginItem
@@ -124,11 +132,30 @@
             this.Class.ReadOnly = true;
             this.Class.Visible = false;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(6, 18);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(308, 36);
+            this.progressBar1.TabIndex = 4;
+            // 
+            // GRPLoader
+            // 
+            this.GRPLoader.Controls.Add(this.progressBar1);
+            this.GRPLoader.Location = new System.Drawing.Point(480, 392);
+            this.GRPLoader.Name = "GRPLoader";
+            this.GRPLoader.Size = new System.Drawing.Size(317, 55);
+            this.GRPLoader.TabIndex = 5;
+            this.GRPLoader.TabStop = false;
+            this.GRPLoader.Text = "Loader";
+            this.GRPLoader.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.GRPLoader);
             this.Controls.Add(this.GridGezgin);
             this.Controls.Add(this.GridItems);
             this.Controls.Add(this.BTNAktar);
@@ -137,8 +164,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.Text = "Cross Reference Aktarım Modülü";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GridItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridGezgin)).EndInit();
+            this.GRPLoader.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,9 +180,11 @@
         private System.Windows.Forms.Button BTNAktar;
         private System.Windows.Forms.DataGridView GridItems;
         private System.Windows.Forms.DataGridView GridGezgin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ITEM_CODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn gezginItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Class;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.GroupBox GRPLoader;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ITEM_CODE;
     }
 }
 
