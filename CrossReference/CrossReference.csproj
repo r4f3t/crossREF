@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Oxygen-Icons.org-Oxygen-Places-server-database.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net40\EntityFramework.dll</HintPath>
@@ -102,7 +105,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="CrossDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CrossDB.Designer.cs</LastGenOutput>
@@ -135,6 +140,7 @@
       <DependentUpon>CrossDB.edmx</DependentUpon>
       <LastGenOutput>CrossDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Oxygen-Icons.org-Oxygen-Places-server-database.ico" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

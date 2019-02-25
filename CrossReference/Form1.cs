@@ -99,7 +99,7 @@ namespace CrossReference
             {
                 GridGezgin.Focus();
             }
-            else if(e.KeyCode==Keys.Up)
+            else if (e.KeyCode == Keys.Up)
             {
                 if (GridGezgin.CurrentRow.Index == 0) TXTCode.Focus();
             }
@@ -126,14 +126,16 @@ namespace CrossReference
 
         private void GridGezgin_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13) GridGezgin_CellContentDoubleClick(new object(), new DataGridViewCellEventArgs(0, 0));
+            if (e.KeyChar == 13) {
+                GridGezginEnter();
+            }
 
 
         }
 
         private void GridGezgin_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
         #endregion
         #region Excel
@@ -155,7 +157,6 @@ namespace CrossReference
                 var workSheet = currentSheet.First();
                 var noOfCol = workSheet.Dimension.End.Column;
                 var noOfRow = workSheet.Dimension.End.Row;
-                string[,] gridVeri = new string[50, 50];
                 for (int rowIterator = 1; rowIterator <= noOfRow; rowIterator++)
                 {
                     var urun = new Urun();
@@ -166,7 +167,7 @@ namespace CrossReference
                     progressBar1.Value++;
 
                     // ListExcel.Items.Add($"{urun.Kod1}<---> {urun.Kod2}");
-                   
+
                 }
                 GRPLoader.Text = "Veriler Okundu";
                 foreach (var item in uruns)
@@ -181,21 +182,38 @@ namespace CrossReference
                     {
                         db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = veri2.CLASS });
                     }
-                    else if (veri==null && veri2==null)
+                    else if (veri == null && veri2 == null)
                     {
                         var modelNumarator = db.NUMARATOR.Find(1);
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = modelNumarator.NUMBER});
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = modelNumarator.NUMBER });
                         db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = modelNumarator.NUMBER });
                         modelNumarator.NUMBER++;
                         db.NUMARATOR.AddOrUpdate(modelNumarator);
-                        
+                    }
+                    else if (veri != null && veri2 != null)
+                    {
+                        //verilerin class larına bak grup olarak en küçük olana güncelle
+                        var class1 = veri.CLASS;
+                        var class2 = veri2.CLASS;
+                        if (class1 != class2)
+                        {
+                            int? minClass = 0;
+                            int? maxClass = 0;
+                            if (class1 < class2) { minClass = class1; maxClass = class2; }
+                            if (class2 < class1) { minClass = class2; maxClass = class1; }
+                            var maxClasses = db.CROSS.Where(x => x.CLASS == maxClass).ToList();
+                            maxClasses.ForEach(x => x.CLASS = minClass);
+
+                        }
+
                     }
                     progressBar1.Value = (progressBar1.Value >= 100) ? 0 : progressBar1.Value;
                     progressBar1.Value++;
                     GRPLoader.Text = "Veriler Dbye Yazılıyor.";
+                    db.SaveChanges();
                 }
 
-                db.SaveChanges();
+
                 GRPLoader.Text = "Veriler Dbye Yazıldı";
                 GRPLoader.Visible = false;
                 MessageBox.Show("Aktarım Tamamlandı");
@@ -225,11 +243,15 @@ namespace CrossReference
             Form1.CheckForIllegalCrossThreadCalls = false;
         }
 
-        private void GridGezgin_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void GridGezginEnter()
         {
             TXTCode.Text = GridGezgin.CurrentRow.Cells[1].Value.ToString();
             GridGezgin.Visible = false;
             VeriGetir(GridGezgin.CurrentRow.Cells[2].Value.ToString());
+        }
+        private void GridGezgin_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            GridGezginEnter();
         }
     }
 }
