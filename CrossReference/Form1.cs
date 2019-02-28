@@ -126,7 +126,8 @@ namespace CrossReference
 
         private void GridGezgin_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13) {
+            if (e.KeyChar == 13)
+            {
                 GridGezginEnter();
             }
 
@@ -144,6 +145,7 @@ namespace CrossReference
         {
             public string Kod1 { get; set; }
             public string Kod2 { get; set; }
+            public string MARKA { get; set; }
         }
         public Func<string, string, bool> compareSpaceless = (a, b) => a.Trim(' ') == b.Trim(' ');
         private void veriAktar(string veriyolu, string extension)
@@ -154,7 +156,7 @@ namespace CrossReference
             using (var package = new ExcelPackage(streamTemp))
             {
                 var currentSheet = package.Workbook.Worksheets;
-                var workSheet = currentSheet.First();
+                var workSheet = currentSheet[1];//florists
                 var noOfCol = workSheet.Dimension.End.Column;
                 var noOfRow = workSheet.Dimension.End.Row;
                 for (int rowIterator = 1; rowIterator <= noOfRow; rowIterator++)
@@ -162,7 +164,12 @@ namespace CrossReference
                     var urun = new Urun();
                     urun.Kod1 = workSheet.Cells[rowIterator, 1].Value != null ? workSheet.Cells[rowIterator, 1].Value.ToString() : string.Empty;
                     urun.Kod2 = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : string.Empty;
-                    uruns.Add(urun);
+                    urun.MARKA = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : string.Empty;
+                    if (!(String.IsNullOrEmpty(urun.Kod1) || String.IsNullOrEmpty(urun.Kod2)))
+                    {
+                        uruns.Add(urun);
+                    }
+
                     progressBar1.Value = (progressBar1.Value >= 100) ? 0 : progressBar1.Value;
                     progressBar1.Value++;
 
@@ -176,17 +183,17 @@ namespace CrossReference
                     var veri2 = db.CROSS.Where(x => x.ITEMCODE.Replace(" ", "") == item.Kod2.Replace(" ", "")).FirstOrDefault();
                     if (veri != null && veri2 == null)
                     {
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = veri.CLASS });
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = veri.CLASS, MARKA = item.MARKA });
                     }
                     else if (veri == null && veri2 != null)
                     {
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = veri2.CLASS });
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = veri2.CLASS, MARKA = item.MARKA });
                     }
                     else if (veri == null && veri2 == null)
                     {
                         var modelNumarator = db.NUMARATOR.Find(1);
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = modelNumarator.NUMBER });
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = modelNumarator.NUMBER });
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = modelNumarator.NUMBER, MARKA = item.MARKA });
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = modelNumarator.NUMBER, MARKA = item.MARKA });
                         modelNumarator.NUMBER++;
                         db.NUMARATOR.AddOrUpdate(modelNumarator);
                     }
@@ -221,20 +228,28 @@ namespace CrossReference
         }
         private async void BTNAktar_Click(object sender, EventArgs e)
         {
-            OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "Excel Dosyası |*.xlsx";
-            file.FilterIndex = 2;
-            file.RestoreDirectory = true;
-            file.CheckFileExists = false;
-            file.Title = "Excel Dosyası Seçiniz..";
-            file.ShowDialog();
+            try
+            {
 
-            string DosyaYolu = file.FileName;
-            string DosyaAdi = file.SafeFileName;
-            GRPLoader.Visible = true;
-            GRPLoader.Text = "Veriler Belleğe Okunuyor";
-            Task task = Task.Factory.StartNew(() => veriAktar(DosyaYolu, Path.GetExtension(DosyaYolu)));
+                OpenFileDialog file = new OpenFileDialog();
+                file.Filter = "Excel Dosyası |*.xlsx";
+                file.FilterIndex = 2;
+                file.RestoreDirectory = true;
+                file.CheckFileExists = false;
+                file.Title = "Excel Dosyası Seçiniz..";
+                file.ShowDialog();
 
+                string DosyaYolu = file.FileName;
+                string DosyaAdi = file.SafeFileName;
+                GRPLoader.Visible = true;
+                GRPLoader.Text = "Veriler Belleğe Okunuyor";
+                Task task = Task.Factory.StartNew(() => veriAktar(DosyaYolu, Path.GetExtension(DosyaYolu)));
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
         #endregion
 

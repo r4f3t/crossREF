@@ -17,5 +17,6 @@ namespace CrossReference
         public int ID { get; set; }
         public string ITEMCODE { get; set; }
         public Nullable<int> CLASS { get; set; }
+        public string MARKA { get; set; }
     }
 }
