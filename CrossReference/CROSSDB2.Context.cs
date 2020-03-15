@@ -13,10 +13,10 @@ namespace CrossReference
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CROSSDBEntities1 : DbContext
+    public partial class CROSSDBEntities2 : DbContext
     {
-        public CROSSDBEntities1()
-            : base("name=CROSSDBEntities1")
+        public CROSSDBEntities2()
+            : base("name=CROSSDBEntities2")
         {
         }
     
@@ -25,6 +25,7 @@ namespace CrossReference
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CARREFERENCES> CARREFERENCES { get; set; }
         public virtual DbSet<CROSS> CROSS { get; set; }
         public virtual DbSet<NUMARATOR> NUMARATOR { get; set; }
     }

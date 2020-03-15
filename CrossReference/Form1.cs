@@ -18,7 +18,8 @@ namespace CrossReference
 {
     public partial class Form1 : Form
     {
-        CROSSDBEntities1 db = new CROSSDBEntities1();
+
+        CROSSDBEntities2 db = new CROSSDBEntities2();
         public Form1()
         {
             InitializeComponent();

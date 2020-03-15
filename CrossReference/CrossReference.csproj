@@ -63,23 +63,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CARREFERENCES.cs">
+      <DependentUpon>CROSSDB2.tt</DependentUpon>
+    </Compile>
     <Compile Include="CROSS.cs">
-      <DependentUpon>CrossDB.tt</DependentUpon>
+      <DependentUpon>CROSSDB2.tt</DependentUpon>
     </Compile>
-    <Compile Include="CrossDB.Context.cs">
+    <Compile Include="CROSSDB2.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrossDB.Context.tt</DependentUpon>
+      <DependentUpon>CROSSDB2.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CrossDB.cs">
+    <Compile Include="CROSSDB2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrossDB.tt</DependentUpon>
+      <DependentUpon>CROSSDB2.tt</DependentUpon>
     </Compile>
-    <Compile Include="CrossDB.Designer.cs">
+    <Compile Include="CROSSDB2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrossDB.edmx</DependentUpon>
+      <DependentUpon>CROSSDB2.edmx</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -87,13 +90,31 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FRMAracAraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMAracAraForm.Designer.cs">
+      <DependentUpon>FRMAracAraForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FRMAracTip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FRMAracTip.Designer.cs">
+      <DependentUpon>FRMAracTip.cs</DependentUpon>
+    </Compile>
     <Compile Include="NUMARATOR.cs">
-      <DependentUpon>CrossDB.tt</DependentUpon>
+      <DependentUpon>CROSSDB2.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMAracAraForm.resx">
+      <DependentUpon>FRMAracAraForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FRMAracTip.resx">
+      <DependentUpon>FRMAracTip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -108,12 +129,12 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="CrossDB.edmx">
+    <EntityDeploy Include="CROSSDB2.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CrossDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>CROSSDB2.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CrossDB.edmx.diagram">
-      <DependentUpon>CrossDB.edmx</DependentUpon>
+    <None Include="CROSSDB2.edmx.diagram">
+      <DependentUpon>CROSSDB2.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -130,15 +151,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CrossDB.Context.tt">
+    <Content Include="CROSSDB2.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CrossDB.edmx</DependentUpon>
-      <LastGenOutput>CrossDB.Context.cs</LastGenOutput>
+      <DependentUpon>CROSSDB2.edmx</DependentUpon>
+      <LastGenOutput>CROSSDB2.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="CrossDB.tt">
+    <Content Include="CROSSDB2.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CrossDB.edmx</DependentUpon>
-      <LastGenOutput>CrossDB.cs</LastGenOutput>
+      <DependentUpon>CROSSDB2.edmx</DependentUpon>
+      <LastGenOutput>CROSSDB2.cs</LastGenOutput>
     </Content>
     <Content Include="Oxygen-Icons.org-Oxygen-Places-server-database.ico" />
   </ItemGroup>
