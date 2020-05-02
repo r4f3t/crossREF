@@ -1,9 +1,9 @@
-﻿using OfficeOpenXml;
+﻿using CrossReference.CrossGeneral;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Entity.Migrations;
 using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
@@ -13,43 +13,27 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace CrossReference
 {
     public partial class Form1 : Form
     {
 
-        CROSSDBEntities2 db = new CROSSDBEntities2();
         public Form1()
         {
             InitializeComponent();
         }
         #region UrunArama
-        private void gezginVeriYolla()
-        {
-            string referans = GridGezgin.CurrentRow.Cells[2].Value.ToString();
-            TXTCode.Text = GridGezgin.CurrentRow.Cells[1].Value.ToString();
-            VeriGetir(referans);
-            GridGezgin.Visible = false;
-        }
+  
 
-        public void VeriGetir(string referans)
-        {
-
-            if (referans == null)
-            {
-                return;
-            }
-            var model = db.CROSS.Where(x => x.CLASS.ToString() == referans).ToList();
-            GridItems.DataSource = model;
-
-        }
+     
         private void gezginGetir()
         {
             string itemCode = TXTCode.Text;
-            var modelItems = db.CROSS.Where(x => x.ITEMCODE.Replace(" ", "").Contains(itemCode.Replace(" ", ""))).ToList();
-            GridGezgin.Visible = true;
-            GridGezgin.DataSource = modelItems;
+          //  //GridGezgin.Visible = true;
+            CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
+            GridItems.DataSource = crossGeneralManager.SearchCrossB2B(itemCode);
 
         }
 
@@ -61,7 +45,7 @@ namespace CrossReference
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            gezginVeriYolla();
+    
         }
 
         private void TXTCode_KeyPress(object sender, KeyPressEventArgs e)
@@ -84,39 +68,21 @@ namespace CrossReference
 
         private void TXTCode_TextChanged(object sender, EventArgs e)
         {
-            gezginGetir();
+            //      gezginGetir();
         }
 
         private void TXTCode_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down)
             {
-                GridGezgin.Focus();
+                //GridGezgin.Focus();
             }
         }
-        private void GridGezgin_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Down)
-            {
-                GridGezgin.Focus();
-            }
-            else if (e.KeyCode == Keys.Up)
-            {
-                if (GridGezgin.CurrentRow.Index == 0) TXTCode.Focus();
-            }
-        }
+      
         private void TXTCode_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Up)
             {
-                GridGezgin.ClearSelection();
-                int index = GridGezgin.CurrentRow.Index;
-
-                if (index != 0)
-                {
-                    index--;
-                }
-                GridGezgin.Rows[index].Selected = true;
             }
         }
 
@@ -129,7 +95,7 @@ namespace CrossReference
         {
             if (e.KeyChar == 13)
             {
-                GridGezginEnter();
+                //GridGezginEnter();
             }
 
 
@@ -157,22 +123,24 @@ namespace CrossReference
                 MessageBox.Show("Dosya Seçmediniz !!!");
                 return;
             }
-            List<Urun> uruns = new List<Urun>();
+            List<CrossGeneralModel> uruns = new List<CrossGeneralModel>();
             FileStream streamTemp = File.Open(veriyolu, FileMode.Open, FileAccess.Read);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             using (var package = new ExcelPackage(streamTemp))
             {
                 var currentSheet = package.Workbook.Worksheets;
-                var workSheet = currentSheet[1];//florists
+                var workSheet = currentSheet[0];//florists
                 var noOfCol = workSheet.Dimension.End.Column;
                 var noOfRow = workSheet.Dimension.End.Row;
                 for (int rowIterator = 1; rowIterator <= noOfRow; rowIterator++)
                 {
-                    var urun = new Urun();
-                    urun.Kod1 = workSheet.Cells[rowIterator, 1].Value != null ? workSheet.Cells[rowIterator, 1].Value.ToString() : string.Empty;
-                    urun.Kod2 = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : string.Empty;
-                    urun.MARKA = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : string.Empty;
-                    urun.ARAC_TURU = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : string.Empty;
-                    if (!(String.IsNullOrEmpty(urun.Kod1) || String.IsNullOrEmpty(urun.Kod2)))
+                    var urun = new CrossGeneralModel();
+                    urun.AracTipi = workSheet.Cells[rowIterator, 1].Value != null ? workSheet.Cells[rowIterator, 1].Value.ToString() : string.Empty;
+                    urun.Marka = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : string.Empty;
+                    urun.Oem = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : string.Empty;
+                    urun.UrunKodu = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : string.Empty;
+                    if (!(String.IsNullOrEmpty(urun.AracTipi)))
                     {
                         uruns.Add(urun);
                     }
@@ -181,47 +149,18 @@ namespace CrossReference
                     progressBar1.Value++;
                 }
                 GRPLoader.Text = "Veriler Okundu";
+                int i = 0;
                 foreach (var item in uruns)
                 {
-                    var veri = db.CROSS.Where(x => x.ITEMCODE.Replace(" ", "") == item.Kod1.Replace(" ", "")).FirstOrDefault();
-                    var veri2 = db.CROSS.Where(x => x.ITEMCODE.Replace(" ", "") == item.Kod2.Replace(" ", "")).FirstOrDefault();
-                    if (veri != null && veri2 == null)
+                    if (i == 0)
                     {
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = veri.CLASS, MARKA = item.MARKA,ARAC_TURU=item.ARAC_TURU });
-                    }
-                    else if (veri == null && veri2 != null)
-                    {
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = veri2.CLASS, MARKA = item.MARKA, ARAC_TURU = item.ARAC_TURU });
-                    }
-                    else if (veri == null && veri2 == null)
-                    {
-                        var modelNumarator = db.NUMARATOR.Find(1);
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = modelNumarator.NUMBER, MARKA = item.MARKA, ARAC_TURU = item.ARAC_TURU });
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = modelNumarator.NUMBER, MARKA = item.MARKA, ARAC_TURU = item.ARAC_TURU });
-                        modelNumarator.NUMBER++;
-                        db.NUMARATOR.AddOrUpdate(modelNumarator);
-                    }
-                    else if (veri != null && veri2 != null)
-                    {
-                        //verilerin class larına bak grup olarak en küçük olana güncelle
-                        var class1 = veri.CLASS;
-                        var class2 = veri2.CLASS;
-                        if (class1 != class2)
-                        {
-                            int? minClass = 0;
-                            int? maxClass = 0;
-                            if (class1 < class2) { minClass = class1; maxClass = class2; }
-                            if (class2 < class1) { minClass = class2; maxClass = class1; }
-                            var maxClasses = db.CROSS.Where(x => x.CLASS == maxClass).ToList();
-                            maxClasses.ForEach(x => x.CLASS = minClass);
-
-                        }
-
+                        CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
+                        crossGeneralManager.AddData(uruns);
                     }
                     progressBar1.Value = (progressBar1.Value >= 100) ? 0 : progressBar1.Value;
                     progressBar1.Value++;
                     GRPLoader.Text = "Veriler Dbye Yazılıyor.";
-                    db.SaveChanges();
+                    i++;
                 }
 
 
@@ -264,13 +203,13 @@ namespace CrossReference
 
         private void GridGezginEnter()
         {
-            TXTCode.Text = GridGezgin.CurrentRow.Cells[1].Value.ToString();
-            GridGezgin.Visible = false;
-            VeriGetir(GridGezgin.CurrentRow.Cells[2].Value.ToString());
+          //  TXTCode.Text = GridGezgin.CurrentRow.Cells[1].Value.ToString();
+            //GridGezgin.Visible = false;
+            //VeriGetir(//GridGezgin.CurrentRow.Cells[2].Value.ToString());
         }
         private void GridGezgin_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            GridGezginEnter();
+            //GridGezginEnter();
         }
     }
 }

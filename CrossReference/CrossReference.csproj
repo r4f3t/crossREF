@@ -38,11 +38,8 @@
     <ApplicationIcon>Oxygen-Icons.org-Oxygen-Places-server-database.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="Dapper, Version=1.50.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.0\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus, Version=4.0.5.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -63,35 +60,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CROSS.cs">
-      <DependentUpon>CROSSDB2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CROSSDB2.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CROSSDB2.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CROSSDB2.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CROSSDB2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CROSSDB2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CROSSDB2.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="CrossGeneral\CROSSB2BModel.cs" />
+    <Compile Include="CrossGeneral\CrossGeneralManager.cs" />
+    <Compile Include="CrossGeneral\CrossGeneralModel.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FRMAracAraForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FRMAracAraForm.Designer.cs">
-      <DependentUpon>FRMAracAraForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FRMAracTip.cs">
       <SubType>Form</SubType>
@@ -99,16 +75,10 @@
     <Compile Include="FRMAracTip.Designer.cs">
       <DependentUpon>FRMAracTip.cs</DependentUpon>
     </Compile>
-    <Compile Include="NUMARATOR.cs">
-      <DependentUpon>CROSSDB2.tt</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FRMAracAraForm.resx">
-      <DependentUpon>FRMAracAraForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FRMAracTip.resx">
       <DependentUpon>FRMAracTip.cs</DependentUpon>
@@ -126,13 +96,6 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="CROSSDB2.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CROSSDB2.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="CROSSDB2.edmx.diagram">
-      <DependentUpon>CROSSDB2.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -148,16 +111,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CROSSDB2.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CROSSDB2.edmx</DependentUpon>
-      <LastGenOutput>CROSSDB2.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="CROSSDB2.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CROSSDB2.edmx</DependentUpon>
-      <LastGenOutput>CROSSDB2.cs</LastGenOutput>
-    </Content>
     <Content Include="Oxygen-Icons.org-Oxygen-Places-server-database.ico" />
   </ItemGroup>
   <ItemGroup>

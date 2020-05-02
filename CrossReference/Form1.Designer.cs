@@ -28,19 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.TXTCode = new System.Windows.Forms.TextBox();
             this.BTNAra = new System.Windows.Forms.Button();
             this.BTNAktar = new System.Windows.Forms.Button();
             this.GridItems = new System.Windows.Forms.DataGridView();
-            this.ITEM_CODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GridGezgin = new System.Windows.Forms.DataGridView();
-            this.gezginItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Class = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.GRPLoader = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.GridItems)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GridGezgin)).BeginInit();
             this.GRPLoader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,58 +73,11 @@
             // GridItems
             // 
             this.GridItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ITEM_CODE});
             this.GridItems.Location = new System.Drawing.Point(0, 34);
             this.GridItems.Name = "GridItems";
             this.GridItems.RowTemplate.Height = 24;
             this.GridItems.Size = new System.Drawing.Size(797, 413);
             this.GridItems.TabIndex = 2;
-            // 
-            // ITEM_CODE
-            // 
-            this.ITEM_CODE.DataPropertyName = "ITEMCODE";
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            this.ITEM_CODE.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ITEM_CODE.HeaderText = "Ürün Kodu";
-            this.ITEM_CODE.Name = "ITEM_CODE";
-            this.ITEM_CODE.ReadOnly = true;
-            this.ITEM_CODE.Width = 750;
-            // 
-            // GridGezgin
-            // 
-            this.GridGezgin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridGezgin.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.gezginItem,
-            this.Class});
-            this.GridGezgin.Location = new System.Drawing.Point(0, 34);
-            this.GridGezgin.Name = "GridGezgin";
-            this.GridGezgin.RowTemplate.Height = 24;
-            this.GridGezgin.Size = new System.Drawing.Size(491, 150);
-            this.GridGezgin.TabIndex = 3;
-            this.GridGezgin.Visible = false;
-            this.GridGezgin.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridGezgin_CellDoubleClick);
-            this.GridGezgin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GridGezgin_KeyDown);
-            this.GridGezgin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GridGezgin_KeyPress);
-            // 
-            // gezginItem
-            // 
-            this.gezginItem.DataPropertyName = "ITEMCODE";
-            this.gezginItem.Frozen = true;
-            this.gezginItem.HeaderText = "Ürün";
-            this.gezginItem.Name = "gezginItem";
-            this.gezginItem.ReadOnly = true;
-            this.gezginItem.Width = 448;
-            // 
-            // Class
-            // 
-            this.Class.DataPropertyName = "CLASS";
-            this.Class.Frozen = true;
-            this.Class.HeaderText = "Class";
-            this.Class.Name = "Class";
-            this.Class.ReadOnly = true;
-            this.Class.Visible = false;
             // 
             // progressBar1
             // 
@@ -156,7 +103,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.GRPLoader);
-            this.Controls.Add(this.GridGezgin);
             this.Controls.Add(this.GridItems);
             this.Controls.Add(this.BTNAktar);
             this.Controls.Add(this.BTNAra);
@@ -166,7 +112,6 @@
             this.Text = "Cross Reference Aktarım Modülü";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GridItems)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GridGezgin)).EndInit();
             this.GRPLoader.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -179,12 +124,8 @@
         private System.Windows.Forms.Button BTNAra;
         private System.Windows.Forms.Button BTNAktar;
         private System.Windows.Forms.DataGridView GridItems;
-        private System.Windows.Forms.DataGridView GridGezgin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn gezginItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Class;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.GroupBox GRPLoader;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ITEM_CODE;
     }
 }
 
