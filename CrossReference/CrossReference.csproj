@@ -63,9 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CARREFERENCES.cs">
-      <DependentUpon>CROSSDB2.tt</DependentUpon>
-    </Compile>
     <Compile Include="CROSS.cs">
       <DependentUpon>CROSSDB2.tt</DependentUpon>
     </Compile>

@@ -4,29 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CROSSDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="CARREFERENCES">
-          <Key>
-            <PropertyRef Name="LOGICALREF" />
-          </Key>
-          <Property Name="LOGICALREF" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="URETICI" Type="nvarchar" MaxLength="80" />
-          <Property Name="MODEL" Type="nvarchar" MaxLength="80" />
-          <Property Name="MODELTIPI" Type="nvarchar" MaxLength="80" />
-          <Property Name="MOTORGUCU" Type="nvarchar" MaxLength="80" />
-          <Property Name="URETIMYILI" Type="nvarchar" MaxLength="80" />
-          <Property Name="YAKIT" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN1" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN11" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN12" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN13" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN14" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN15" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN16" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN17" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN18" Type="nvarchar" MaxLength="80" />
-          <Property Name="ALAN19" Type="nvarchar" MaxLength="80" />
-        </EntityType>
+    <Schema Namespace="CROSSDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CROSS">
           <Key>
             <PropertyRef Name="ID" />
@@ -35,6 +13,7 @@
           <Property Name="ITEMCODE" Type="nvarchar" MaxLength="100" />
           <Property Name="CLASS" Type="int" />
           <Property Name="MARKA" Type="nvarchar" MaxLength="80" />
+          <Property Name="ARAC_TURU" Type="nvarchar" MaxLength="2" />
         </EntityType>
         <EntityType Name="NUMARATOR">
           <Key>
@@ -44,37 +23,13 @@
           <Property Name="NUMBER" Type="int" />
         </EntityType>
         <EntityContainer Name="CROSSDBModel1StoreContainer">
-          <EntitySet Name="CARREFERENCES" EntityType="Self.CARREFERENCES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CROSS" EntityType="Self.CROSS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NUMARATOR" EntityType="Self.NUMARATOR" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CROSSDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="CARREFERENCES">
-          <Key>
-            <PropertyRef Name="LOGICALREF" />
-          </Key>
-          <Property Name="LOGICALREF" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="URETICI" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="MODEL" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="MODELTIPI" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="MOTORGUCU" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="URETIMYILI" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="YAKIT" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN1" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN11" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN12" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN13" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN14" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN15" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN16" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN17" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN18" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="ALAN19" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="CROSS">
           <Key>
             <PropertyRef Name="ID" />
@@ -83,6 +38,7 @@
           <Property Name="ITEMCODE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CLASS" Type="Int32" />
           <Property Name="MARKA" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="ARAC_TURU" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="NUMARATOR">
           <Key>
@@ -92,7 +48,6 @@
           <Property Name="NUMBER" Type="Int32" />
         </EntityType>
         <EntityContainer Name="CROSSDBEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CARREFERENCES" EntityType="Self.CARREFERENCES" />
           <EntitySet Name="CROSS" EntityType="Self.CROSS" />
           <EntitySet Name="NUMARATOR" EntityType="Self.NUMARATOR" />
         </EntityContainer>
@@ -102,32 +57,10 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CROSSDBModel1StoreContainer" CdmEntityContainer="CROSSDBEntities2">
-          <EntitySetMapping Name="CARREFERENCES">
-            <EntityTypeMapping TypeName="CROSSDBModel1.CARREFERENCES">
-              <MappingFragment StoreEntitySet="CARREFERENCES">
-                <ScalarProperty Name="LOGICALREF" ColumnName="LOGICALREF" />
-                <ScalarProperty Name="URETICI" ColumnName="URETICI" />
-                <ScalarProperty Name="MODEL" ColumnName="MODEL" />
-                <ScalarProperty Name="MODELTIPI" ColumnName="MODELTIPI" />
-                <ScalarProperty Name="MOTORGUCU" ColumnName="MOTORGUCU" />
-                <ScalarProperty Name="URETIMYILI" ColumnName="URETIMYILI" />
-                <ScalarProperty Name="YAKIT" ColumnName="YAKIT" />
-                <ScalarProperty Name="ALAN1" ColumnName="ALAN1" />
-                <ScalarProperty Name="ALAN11" ColumnName="ALAN11" />
-                <ScalarProperty Name="ALAN12" ColumnName="ALAN12" />
-                <ScalarProperty Name="ALAN13" ColumnName="ALAN13" />
-                <ScalarProperty Name="ALAN14" ColumnName="ALAN14" />
-                <ScalarProperty Name="ALAN15" ColumnName="ALAN15" />
-                <ScalarProperty Name="ALAN16" ColumnName="ALAN16" />
-                <ScalarProperty Name="ALAN17" ColumnName="ALAN17" />
-                <ScalarProperty Name="ALAN18" ColumnName="ALAN18" />
-                <ScalarProperty Name="ALAN19" ColumnName="ALAN19" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CROSS">
             <EntityTypeMapping TypeName="CROSSDBModel1.CROSS">
               <MappingFragment StoreEntitySet="CROSS">
+                <ScalarProperty Name="ARAC_TURU" ColumnName="ARAC_TURU" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ITEMCODE" ColumnName="ITEMCODE" />
                 <ScalarProperty Name="CLASS" ColumnName="CLASS" />

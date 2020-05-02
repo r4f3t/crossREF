@@ -147,11 +147,16 @@ namespace CrossReference
             public string Kod1 { get; set; }
             public string Kod2 { get; set; }
             public string MARKA { get; set; }
+            public string ARAC_TURU { get; set; }
         }
         public Func<string, string, bool> compareSpaceless = (a, b) => a.Trim(' ') == b.Trim(' ');
         private void veriAktar(string veriyolu, string extension)
         {
-
+            if (String.IsNullOrEmpty(veriyolu))
+            {
+                MessageBox.Show("Dosya Seçmediniz !!!");
+                return;
+            }
             List<Urun> uruns = new List<Urun>();
             FileStream streamTemp = File.Open(veriyolu, FileMode.Open, FileAccess.Read);
             using (var package = new ExcelPackage(streamTemp))
@@ -166,6 +171,7 @@ namespace CrossReference
                     urun.Kod1 = workSheet.Cells[rowIterator, 1].Value != null ? workSheet.Cells[rowIterator, 1].Value.ToString() : string.Empty;
                     urun.Kod2 = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : string.Empty;
                     urun.MARKA = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : string.Empty;
+                    urun.ARAC_TURU = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : string.Empty;
                     if (!(String.IsNullOrEmpty(urun.Kod1) || String.IsNullOrEmpty(urun.Kod2)))
                     {
                         uruns.Add(urun);
@@ -173,9 +179,6 @@ namespace CrossReference
 
                     progressBar1.Value = (progressBar1.Value >= 100) ? 0 : progressBar1.Value;
                     progressBar1.Value++;
-
-                    // ListExcel.Items.Add($"{urun.Kod1}<---> {urun.Kod2}");
-
                 }
                 GRPLoader.Text = "Veriler Okundu";
                 foreach (var item in uruns)
@@ -184,17 +187,17 @@ namespace CrossReference
                     var veri2 = db.CROSS.Where(x => x.ITEMCODE.Replace(" ", "") == item.Kod2.Replace(" ", "")).FirstOrDefault();
                     if (veri != null && veri2 == null)
                     {
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = veri.CLASS, MARKA = item.MARKA });
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = veri.CLASS, MARKA = item.MARKA,ARAC_TURU=item.ARAC_TURU });
                     }
                     else if (veri == null && veri2 != null)
                     {
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = veri2.CLASS, MARKA = item.MARKA });
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = veri2.CLASS, MARKA = item.MARKA, ARAC_TURU = item.ARAC_TURU });
                     }
                     else if (veri == null && veri2 == null)
                     {
                         var modelNumarator = db.NUMARATOR.Find(1);
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = modelNumarator.NUMBER, MARKA = item.MARKA });
-                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = modelNumarator.NUMBER, MARKA = item.MARKA });
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod1, CLASS = modelNumarator.NUMBER, MARKA = item.MARKA, ARAC_TURU = item.ARAC_TURU });
+                        db.CROSS.Add(new CROSS() { ITEMCODE = item.Kod2, CLASS = modelNumarator.NUMBER, MARKA = item.MARKA, ARAC_TURU = item.ARAC_TURU });
                         modelNumarator.NUMBER++;
                         db.NUMARATOR.AddOrUpdate(modelNumarator);
                     }

@@ -18,5 +18,6 @@ namespace CrossReference
         public string ITEMCODE { get; set; }
         public Nullable<int> CLASS { get; set; }
         public string MARKA { get; set; }
+        public string ARAC_TURU { get; set; }
     }
 }

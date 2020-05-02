@@ -25,7 +25,6 @@ namespace CrossReference
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CARREFERENCES> CARREFERENCES { get; set; }
         public virtual DbSet<CROSS> CROSS { get; set; }
         public virtual DbSet<NUMARATOR> NUMARATOR { get; set; }
     }
