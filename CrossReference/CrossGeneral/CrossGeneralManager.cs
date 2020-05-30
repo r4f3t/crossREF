@@ -28,8 +28,8 @@ namespace CrossReference.CrossGeneral
                         " and replace(UrunKodu,' ','')='" + x.UrunKodu + "' ");
                     if (dbData.Count() <= 0)
                     {
-                        var result = db.Execute("insert into CrossGeneral (AracTipi,Marka,Oem,UrunKodu) values " +
-                            "('" + x.AracTipi + "','" + x.Marka + "','" + x.Oem + "','" + x.UrunKodu + "')");
+                        var result = db.Execute("insert into CrossGeneral (AracTipi,Marka,Oem,UrunKodu,UrunMarka) values " +
+                            "('" + x.AracTipi + "','" + x.Marka + "','" + x.Oem + "','" + x.UrunKodu + "','"+x.UrunMarka+"')");
                     }
                 }
             });

@@ -6,5 +6,6 @@
         public string Marka { get; set; }
         public string Oem { get; set; }
         public string UrunKodu { get; set; }
+        public string UrunMarka { get; set; }
     }
 }

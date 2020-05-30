@@ -140,6 +140,7 @@ namespace CrossReference
                     urun.Marka = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : string.Empty;
                     urun.Oem = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : string.Empty;
                     urun.UrunKodu = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : string.Empty;
+                    urun.UrunMarka= workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : string.Empty;
                     if (!(String.IsNullOrEmpty(urun.AracTipi)))
                     {
                         uruns.Add(urun);
