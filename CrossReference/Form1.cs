@@ -25,13 +25,13 @@ namespace CrossReference
             InitializeComponent();
         }
         #region UrunArama
-  
 
-     
+
+
         private void gezginGetir()
         {
             string itemCode = TXTCode.Text;
-          //  //GridGezgin.Visible = true;
+            //  //GridGezgin.Visible = true;
             CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
             GridItems.DataSource = crossGeneralManager.SearchCrossB2B(itemCode);
 
@@ -45,7 +45,7 @@ namespace CrossReference
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-    
+
         }
 
         private void TXTCode_KeyPress(object sender, KeyPressEventArgs e)
@@ -78,7 +78,7 @@ namespace CrossReference
                 //GridGezgin.Focus();
             }
         }
-      
+
         private void TXTCode_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Up)
@@ -88,7 +88,7 @@ namespace CrossReference
 
         private void GridGezgin_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("rafet");
+          
         }
 
         private void GridGezgin_KeyPress(object sender, KeyPressEventArgs e)
@@ -140,7 +140,7 @@ namespace CrossReference
                     urun.Marka = workSheet.Cells[rowIterator, 2].Value != null ? workSheet.Cells[rowIterator, 2].Value.ToString() : string.Empty;
                     urun.Oem = workSheet.Cells[rowIterator, 3].Value != null ? workSheet.Cells[rowIterator, 3].Value.ToString() : string.Empty;
                     urun.UrunKodu = workSheet.Cells[rowIterator, 4].Value != null ? workSheet.Cells[rowIterator, 4].Value.ToString() : string.Empty;
-                    urun.UrunMarka= workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : string.Empty;
+                    urun.UrunMarka = workSheet.Cells[rowIterator, 5].Value != null ? workSheet.Cells[rowIterator, 5].Value.ToString() : string.Empty;
                     if (!(String.IsNullOrEmpty(urun.AracTipi)))
                     {
                         uruns.Add(urun);
@@ -204,13 +204,63 @@ namespace CrossReference
 
         private void GridGezginEnter()
         {
-          //  TXTCode.Text = GridGezgin.CurrentRow.Cells[1].Value.ToString();
+            //  TXTCode.Text = GridGezgin.CurrentRow.Cells[1].Value.ToString();
             //GridGezgin.Visible = false;
             //VeriGetir(//GridGezgin.CurrentRow.Cells[2].Value.ToString());
         }
         private void GridGezgin_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //GridGezginEnter();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            FrmNewCross frmNewCross = new FrmNewCross();
+            frmNewCross.Show();
+        }
+        public static string GOEM,GOEMMarka,GUrunKodu,GUrunMarka,GAracTipi,GId;
+
+        private void BTNSil_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show(GOEM+" Oem Kaydı Silinecektir Emin misiniz ?", "Kayıt Sil", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (!String.IsNullOrEmpty(GId))
+                {
+                    CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
+                    var deleteResult= crossGeneralManager.DeleteCross(GId);
+                    if (deleteResult)
+                    {
+                        gezginGetir();
+                    }
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                
+            }
+        }
+
+        private void GridItems_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            GOEM = GridItems.Rows[e.RowIndex].Cells["OENormal"].Value.ToString();
+            GOEMMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value.ToString();
+            GUrunKodu = GridItems.Rows[e.RowIndex].Cells["ProductNumber"].Value.ToString();
+            GUrunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
+            GId= GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+            if (GUrunMarka != "MANN HUMMEL" && GUrunMarka != "FLEETGUARD")
+            {   
+                BTNSil.Visible = true;
+            }
+            else
+            {
+                BTNSil.Visible = false;
+            }
+        }
+
+        private void GridItems_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
         }
     }
 }

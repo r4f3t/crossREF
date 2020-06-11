@@ -7,5 +7,6 @@
         public string ProductNumber{ get; set; }
         public string Marka { get; set; }
         public string CatalogName { get; set; }
+        public string Id { get; set; }
     }
 }

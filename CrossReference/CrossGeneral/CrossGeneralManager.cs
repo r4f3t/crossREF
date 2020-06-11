@@ -35,6 +35,17 @@ namespace CrossReference.CrossGeneral
             });
         }
 
+        public bool DeleteCross(string Id)
+        {
+            var result = 0;
+            using (var db=GetConnection())
+            {
+                 result = db.Execute(" delete from CrossGeneral where Id="+Id);
+            }
+
+            return result>0;
+        }
+
         public  List<CROSSB2BModel> SearchCrossB2B(string searchkey)
         {
 

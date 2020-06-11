@@ -75,6 +75,18 @@
     <Compile Include="FRMAracTip.Designer.cs">
       <DependentUpon>FRMAracTip.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmEditCross.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditCross.Designer.cs">
+      <DependentUpon>FrmEditCross.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNewCross.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNewCross.Designer.cs">
+      <DependentUpon>FrmNewCross.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -82,6 +94,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FRMAracTip.resx">
       <DependentUpon>FRMAracTip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditCross.resx">
+      <DependentUpon>FrmEditCross.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNewCross.resx">
+      <DependentUpon>FrmNewCross.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
