@@ -215,10 +215,11 @@ namespace CrossReference
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            GDMLType = "I";
             FrmNewCross frmNewCross = new FrmNewCross();
             frmNewCross.Show();
         }
-        public static string GOEM,GOEMMarka,GUrunKodu,GUrunMarka,GAracTipi,GId;
+        public static string GOEM,GOEMMarka,GUrunKodu,GUrunMarka,GAracTipi,GId,GDMLType;
 
         private void BTNSil_Click(object sender, EventArgs e)
         {
@@ -260,7 +261,15 @@ namespace CrossReference
 
         private void GridItems_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+            GOEM = GridItems.Rows[e.RowIndex].Cells["OENormal"].Value.ToString();
+            GOEMMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value.ToString();
+            GUrunKodu = GridItems.Rows[e.RowIndex].Cells["ProductNumber"].Value.ToString();
+            GUrunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
+            GId = GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+
+            GDMLType = "U";
+            FrmNewCross frmNewCross = new FrmNewCross();
+            frmNewCross.Show();
         }
     }
 }
