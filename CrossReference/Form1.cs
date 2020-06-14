@@ -251,70 +251,70 @@ namespace CrossReference
 
         private void GridItems_CellEndEdit(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
         {
-            try
-            {
+            //try
+            //{
 
-                var id = GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
-                if (!String.IsNullOrEmpty(id))
-                {
+            //    var id = GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+            //    if (!String.IsNullOrEmpty(id))
+            //    {
 
-                    var se = sender;
-                    var er = e;
-                    var newValue = GridItems.Rows[e.RowIndex].Cells["UrunKodu"].Value.ToString();
-                    var urunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
-                    CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
-                    crossGeneralManager.UpdateCode(newValue, urunMarka, id);
-                   // MessageBox.Show("Kayıt Güncellendi.");
+            //        var se = sender;
+            //        var er = e;
+            //        var newValue = GridItems.Rows[e.RowIndex].Cells["UrunKodu"].Value.ToString();
+            //        var urunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
+            //        CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
+            //        crossGeneralManager.UpdateCode(newValue, urunMarka, id);
+            //       // MessageBox.Show("Kayıt Güncellendi.");
 
-                }
-                else
-                {
-                    //kontrol et
+            //    }
+            //    else
+            //    {
+            //        //kontrol et
 
-                    var oem = GridItems.Rows[e.RowIndex].Cells["OEM"].Value;
-                    var oemMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value;
-                    var urunKodu = GridItems.Rows[e.RowIndex].Cells["UrunKodu"].Value;
-                    var urunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value;
+            //        var oem = GridItems.Rows[e.RowIndex].Cells["OEM"].Value;
+            //        var oemMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value;
+            //        var urunKodu = GridItems.Rows[e.RowIndex].Cells["UrunKodu"].Value;
+            //        var urunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value;
 
-                    if (oem == null)
-                    {
+            //        if (oem == null)
+            //        {
 
-                        return;
-                    }
-                    if (oemMarka == null)
-                    {
-                        return;
-                    }
-                    if (urunKodu == null)
-                    {
-                        return;
-                    }
-                    if (urunMarka == null)
-                    {
-                        return;
-                    }
+            //            return;
+            //        }
+            //        if (oemMarka == null)
+            //        {
+            //            return;
+            //        }
+            //        if (urunKodu == null)
+            //        {
+            //            return;
+            //        }
+            //        if (urunMarka == null)
+            //        {
+            //            return;
+            //        }
 
 
-                    var modelList = new List<CrossGeneralModel>();
-                    modelList.Add(new CrossGeneralModel
-                    {
-                        Oem = oem.ToString(),
-                        Marka = oemMarka.ToString(),
-                        UrunKodu = urunKodu.ToString(),
-                        AracTipi = "",
-                        UrunMarka = urunMarka.ToString()
-                    });
-                    CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
-                    crossGeneralManager.AddData(modelList);
-                    MessageBox.Show("Yeni Kayıt Eklendi.");
-                }
+            //        var modelList = new List<CrossGeneralModel>();
+            //        modelList.Add(new CrossGeneralModel
+            //        {
+            //            Oem = oem.ToString(),
+            //            Marka = oemMarka.ToString(),
+            //            UrunKodu = urunKodu.ToString(),
+            //            AracTipi = "",
+            //            UrunMarka = urunMarka.ToString()
+            //        });
+            //        CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
+            //        crossGeneralManager.AddData(modelList);
+            //        MessageBox.Show("Yeni Kayıt Eklendi.");
+            //    }
 
-            }
-            catch (Exception ex)
-            {
+            //}
+            //catch (Exception ex)
+            //{
 
              
-            }
+            //}
         }
 
         private void GridItems_CellDoubleClick(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
