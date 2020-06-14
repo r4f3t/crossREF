@@ -34,6 +34,7 @@ namespace CrossReference
             //  //GridGezgin.Visible = true;
             CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
             GridItems.DataSource = crossGeneralManager.SearchCrossB2B(itemCode);
+            this.Text = "Kayıt Sayısı:" + GridItems.Rows.Count;
 
         }
 
@@ -88,7 +89,7 @@ namespace CrossReference
 
         private void GridGezgin_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-          
+
         }
 
         private void GridGezgin_KeyPress(object sender, KeyPressEventArgs e)
@@ -216,20 +217,154 @@ namespace CrossReference
         private void button1_Click_1(object sender, EventArgs e)
         {
             GDMLType = "I";
-            FrmNewCross frmNewCross = new FrmNewCross();
-            frmNewCross.Show();
+            //FrmNewCross frmNewCross = new FrmNewCross();
+            //frmNewCross.Show();
+            GridItems.Rows.Add("");
         }
-        public static string GOEM,GOEMMarka,GUrunKodu,GUrunMarka,GAracTipi,GId,GDMLType;
+        public static string GOEM, GOEMMarka, GUrunKodu, GUrunMarka, GAracTipi, GId, GDMLType;
+        Font newFont = new Font("Tahoma", 12f, FontStyle.Regular);
+        private void GridItems_CellFormatting(object sender, Telerik.WinControls.UI.CellFormattingEventArgs e)
+        {
+            e.CellElement.Font = newFont;
+            e.Row.Height = 50;
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            GridItems.Width = this.Width - 50;
+            GridItems.Height = this.Height - 50;
+            for (int i = 1; i < GridItems.Columns.Count; i++)
+            {
+                GridItems.MasterTemplate.Columns[i].Width = GridItems.Width / GridItems.Columns.Count;
+            }
+        }
+
+        private void GridItems_UserAddedRow(object sender, Telerik.WinControls.UI.GridViewRowEventArgs e)
+        {
+          
+        }
+
+        private void GridItems_UserAddingRow(object sender, Telerik.WinControls.UI.GridViewRowCancelEventArgs e)
+        {
+          
+        }
+
+        private void GridItems_CellEndEdit(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
+        {
+            try
+            {
+
+                var id = GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+                if (!String.IsNullOrEmpty(id))
+                {
+
+                    var se = sender;
+                    var er = e;
+                    var newValue = GridItems.Rows[e.RowIndex].Cells["UrunKodu"].Value.ToString();
+                    var urunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
+                    CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
+                    crossGeneralManager.UpdateCode(newValue, urunMarka, id);
+                   // MessageBox.Show("Kayıt Güncellendi.");
+
+                }
+                else
+                {
+                    //kontrol et
+
+                    var oem = GridItems.Rows[e.RowIndex].Cells["OEM"].Value;
+                    var oemMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value;
+                    var urunKodu = GridItems.Rows[e.RowIndex].Cells["UrunKodu"].Value;
+                    var urunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value;
+
+                    if (oem == null)
+                    {
+
+                        return;
+                    }
+                    if (oemMarka == null)
+                    {
+                        return;
+                    }
+                    if (urunKodu == null)
+                    {
+                        return;
+                    }
+                    if (urunMarka == null)
+                    {
+                        return;
+                    }
+
+
+                    var modelList = new List<CrossGeneralModel>();
+                    modelList.Add(new CrossGeneralModel
+                    {
+                        Oem = oem.ToString(),
+                        Marka = oemMarka.ToString(),
+                        UrunKodu = urunKodu.ToString(),
+                        AracTipi = "",
+                        UrunMarka = urunMarka.ToString()
+                    });
+                    CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
+                    crossGeneralManager.AddData(modelList);
+                    MessageBox.Show("Yeni Kayıt Eklendi.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+             
+            }
+        }
+
+        private void GridItems_CellDoubleClick(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
+        {
+            //GOEM = GridItems.Rows[e.RowIndex].Cells["OEM"].Value.ToString();
+            //GOEMMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value.ToString();
+            //GUrunKodu = GridItems.Rows[e.RowIndex].Cells["UrunKodu"].Value.ToString();
+            //GUrunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
+            //GId = GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+
+            //GDMLType = "U";
+            //FrmNewCross frmNewCross = new FrmNewCross();
+            //frmNewCross.Show();
+        }
+
+        private void GridItems_CellClick(object sender, Telerik.WinControls.UI.GridViewCellEventArgs e)
+        {
+            try
+            {
+
+                GOEM = GridItems.Rows[e.RowIndex].Cells["OEM"].Value.ToString();
+                GOEMMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value.ToString();
+                GUrunKodu = GridItems.Rows[e.RowIndex].Cells["UrunKodu"].Value.ToString();
+                GUrunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
+                GId = GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+                if (GUrunMarka != "MANN HUMMEL" && GUrunMarka != "FLEETGUARD")
+                {
+                    BTNSil.Visible = true;
+                }
+                else
+                {
+                    BTNSil.Visible = false;
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+        }
 
         private void BTNSil_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show(GOEM+" Oem Kaydı Silinecektir Emin misiniz ?", "Kayıt Sil", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show(GOEM + " Oem Kaydı Silinecektir Emin misiniz ?", "Kayıt Sil", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 if (!String.IsNullOrEmpty(GId))
                 {
                     CrossGeneralManager crossGeneralManager = new CrossGeneralManager();
-                    var deleteResult= crossGeneralManager.DeleteCross(GId);
+                    var deleteResult = crossGeneralManager.DeleteCross(GId);
                     if (deleteResult)
                     {
                         gezginGetir();
@@ -238,38 +373,10 @@ namespace CrossReference
             }
             else if (dialogResult == DialogResult.No)
             {
-                
+
             }
         }
 
-        private void GridItems_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            GOEM = GridItems.Rows[e.RowIndex].Cells["OENormal"].Value.ToString();
-            GOEMMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value.ToString();
-            GUrunKodu = GridItems.Rows[e.RowIndex].Cells["ProductNumber"].Value.ToString();
-            GUrunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
-            GId= GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
-            if (GUrunMarka != "MANN HUMMEL" && GUrunMarka != "FLEETGUARD")
-            {   
-                BTNSil.Visible = true;
-            }
-            else
-            {
-                BTNSil.Visible = false;
-            }
-        }
 
-        private void GridItems_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            GOEM = GridItems.Rows[e.RowIndex].Cells["OENormal"].Value.ToString();
-            GOEMMarka = GridItems.Rows[e.RowIndex].Cells["Marka"].Value.ToString();
-            GUrunKodu = GridItems.Rows[e.RowIndex].Cells["ProductNumber"].Value.ToString();
-            GUrunMarka = GridItems.Rows[e.RowIndex].Cells["CatalogName"].Value.ToString();
-            GId = GridItems.Rows[e.RowIndex].Cells["Id"].Value.ToString();
-
-            GDMLType = "U";
-            FrmNewCross frmNewCross = new FrmNewCross();
-            frmNewCross.Show();
-        }
     }
 }

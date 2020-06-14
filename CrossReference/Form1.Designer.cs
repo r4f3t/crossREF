@@ -28,16 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn6 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn7 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn8 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn9 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn10 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewSummaryItem gridViewSummaryItem2 = new Telerik.WinControls.UI.GridViewSummaryItem();
+            Telerik.WinControls.UI.TableViewDefinition tableViewDefinition2 = new Telerik.WinControls.UI.TableViewDefinition();
             this.TXTCode = new System.Windows.Forms.TextBox();
             this.BTNAra = new System.Windows.Forms.Button();
             this.BTNAktar = new System.Windows.Forms.Button();
-            this.GridItems = new System.Windows.Forms.DataGridView();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.GRPLoader = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.BTNSil = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.GridItems)).BeginInit();
+            this.GridItems = new Telerik.WinControls.UI.RadGridView();
             this.GRPLoader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GridItems)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridItems.MasterTemplate)).BeginInit();
             this.SuspendLayout();
             // 
             // TXTCode
@@ -71,18 +79,6 @@
             this.BTNAktar.Text = "Excelden Aktar";
             this.BTNAktar.UseVisualStyleBackColor = true;
             this.BTNAktar.Click += new System.EventHandler(this.BTNAktar_Click);
-            // 
-            // GridItems
-            // 
-            this.GridItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridItems.Location = new System.Drawing.Point(0, 34);
-            this.GridItems.Name = "GridItems";
-            this.GridItems.RowTemplate.Height = 24;
-            this.GridItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridItems.Size = new System.Drawing.Size(1036, 413);
-            this.GridItems.TabIndex = 2;
-            this.GridItems.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridItems_CellClick);
-            this.GridItems.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridItems_CellDoubleClick);
             // 
             // progressBar1
             // 
@@ -123,15 +119,84 @@
             this.BTNSil.Visible = false;
             this.BTNSil.Click += new System.EventHandler(this.BTNSil_Click);
             // 
+            // GridItems
+            // 
+            this.GridItems.BackColor = System.Drawing.SystemColors.Control;
+            this.GridItems.Cursor = System.Windows.Forms.Cursors.Default;
+            this.GridItems.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.GridItems.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.GridItems.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.GridItems.Location = new System.Drawing.Point(0, 34);
+            this.GridItems.Margin = new System.Windows.Forms.Padding(8);
+            // 
+            // 
+            // 
+            this.GridItems.MasterTemplate.AllowAddNewRow = false;
+            this.GridItems.MasterTemplate.AllowSearchRow = true;
+            gridViewTextBoxColumn6.EnableExpressionEditor = false;
+            gridViewTextBoxColumn6.FieldName = "Id";
+            gridViewTextBoxColumn6.MinWidth = 12;
+            gridViewTextBoxColumn6.Name = "Id";
+            gridViewTextBoxColumn6.Width = 122;
+            gridViewTextBoxColumn7.EnableExpressionEditor = false;
+            gridViewTextBoxColumn7.FieldName = "OENormal";
+            gridViewTextBoxColumn7.HeaderText = "OEM";
+            gridViewTextBoxColumn7.MinWidth = 12;
+            gridViewTextBoxColumn7.Name = "OEM";
+            gridViewTextBoxColumn7.Width = 375;
+            gridViewTextBoxColumn8.EnableExpressionEditor = false;
+            gridViewTextBoxColumn8.FieldName = "Marka";
+            gridViewTextBoxColumn8.HeaderText = "Marka";
+            gridViewTextBoxColumn8.MinWidth = 12;
+            gridViewTextBoxColumn8.Name = "Marka";
+            gridViewTextBoxColumn8.Width = 312;
+            gridViewTextBoxColumn9.EnableExpressionEditor = false;
+            gridViewTextBoxColumn9.FieldName = "ProductNumber";
+            gridViewTextBoxColumn9.HeaderText = "Ürün Kodu";
+            gridViewTextBoxColumn9.MinWidth = 12;
+            gridViewTextBoxColumn9.Name = "UrunKodu";
+            gridViewTextBoxColumn9.Width = 312;
+            gridViewTextBoxColumn10.EnableExpressionEditor = false;
+            gridViewTextBoxColumn10.FieldName = "CatalogName";
+            gridViewTextBoxColumn10.HeaderText = "Katalog Adı";
+            gridViewTextBoxColumn10.MinWidth = 12;
+            gridViewTextBoxColumn10.Name = "CatalogName";
+            gridViewTextBoxColumn10.Width = 188;
+            this.GridItems.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
+            gridViewTextBoxColumn6,
+            gridViewTextBoxColumn7,
+            gridViewTextBoxColumn8,
+            gridViewTextBoxColumn9,
+            gridViewTextBoxColumn10});
+            this.GridItems.MasterTemplate.EnableFiltering = true;
+            gridViewSummaryItem2.Aggregate = Telerik.WinControls.UI.GridAggregateFunction.Count;
+            gridViewSummaryItem2.AggregateExpression = null;
+            gridViewSummaryItem2.FormatString = "{0}";
+            gridViewSummaryItem2.Name = "RecordCount";
+            this.GridItems.MasterTemplate.SummaryRowsBottom.Add(new Telerik.WinControls.UI.GridViewSummaryRowItem(new Telerik.WinControls.UI.GridViewSummaryItem[] {
+                gridViewSummaryItem2}));
+            this.GridItems.MasterTemplate.ViewDefinition = tableViewDefinition2;
+            this.GridItems.Name = "GridItems";
+            this.GridItems.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.GridItems.Size = new System.Drawing.Size(1377, 517);
+            this.GridItems.TabIndex = 8;
+            this.GridItems.Text = "radGridView1";
+            this.GridItems.CellFormatting += new Telerik.WinControls.UI.CellFormattingEventHandler(this.GridItems_CellFormatting);
+            this.GridItems.CellEndEdit += new Telerik.WinControls.UI.GridViewCellEventHandler(this.GridItems_CellEndEdit);
+            this.GridItems.UserAddingRow += new Telerik.WinControls.UI.GridViewRowCancelEventHandler(this.GridItems_UserAddingRow);
+            this.GridItems.UserAddedRow += new Telerik.WinControls.UI.GridViewRowEventHandler(this.GridItems_UserAddedRow);
+            this.GridItems.CellClick += new Telerik.WinControls.UI.GridViewCellEventHandler(this.GridItems_CellClick);
+            this.GridItems.CellDoubleClick += new Telerik.WinControls.UI.GridViewCellEventHandler(this.GridItems_CellDoubleClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 450);
+            this.ClientSize = new System.Drawing.Size(1378, 568);
+            this.Controls.Add(this.GridItems);
             this.Controls.Add(this.BTNSil);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.GRPLoader);
-            this.Controls.Add(this.GridItems);
             this.Controls.Add(this.BTNAktar);
             this.Controls.Add(this.BTNAra);
             this.Controls.Add(this.TXTCode);
@@ -140,8 +205,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cross Reference Aktarım Modülü";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.GridItems)).EndInit();
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.GRPLoader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GridItems.MasterTemplate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridItems)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -152,11 +219,11 @@
         private System.Windows.Forms.TextBox TXTCode;
         private System.Windows.Forms.Button BTNAra;
         private System.Windows.Forms.Button BTNAktar;
-        private System.Windows.Forms.DataGridView GridItems;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.GroupBox GRPLoader;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button BTNSil;
+        private Telerik.WinControls.UI.RadGridView GridItems;
     }
 }
 
