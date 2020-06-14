@@ -85,6 +85,17 @@ namespace CrossReference.CrossGeneral
 
         }
 
+        public List<CROSSB2BModel> SearchCrossB2BMarkaGroup(string searchkey)
+        {
+
+            using (var db = GetConnection())
+            {
+                var dbData = db.Query<CROSSB2BModel>("select Marka from CROSSB2B where lower(replace(OeNormal,' ','')) like '" + searchkey.Replace(" ", "").ToLower() + "%' group by Marka ");
+
+                return dbData.ToList();
+            }
+
+        }
 
 
     }
